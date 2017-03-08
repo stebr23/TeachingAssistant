@@ -8,6 +8,8 @@ package com.hmsdevelopment.teachingassistant;
 
 public class TeachingAssistant {
     
+    // blah blah blah
+    
     
     public static void main(String[] args) {
         LoginScreen login = new LoginScreen(false);
