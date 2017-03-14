@@ -20,18 +20,18 @@ public class Validation {
         this.username = username;
         this.password = password;
         
+        
         try {
             connectToDB();
         } catch (Exception ex) {
             Logger.getLogger(Validation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     private void connectToDB() throws Exception {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-        Statement test = con.createStatement();
-        results = test.executeQuery("select * from credentials");
+        Statement statement = con.createStatement();
+        results = statement.executeQuery("select * from credentials");
         results.first();
         
         // Check username
@@ -58,6 +58,9 @@ public class Validation {
                 }
             }
         }
+        
+        results.close();
+        statement.close();
         con.close();
     }
     
@@ -73,7 +76,7 @@ public class Validation {
     }
         
     private void validationFailure() {
-        LoginScreen loginScreen = new LoginScreen(false);
+        LoginScreen loginScreen = new LoginScreen(true);
         loginScreen.setVisible(true);
     }
     
