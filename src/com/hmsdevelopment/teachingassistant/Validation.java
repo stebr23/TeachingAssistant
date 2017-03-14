@@ -14,6 +14,7 @@ public class Validation {
     private final int DB_USERNAME_COLUMN = 2;
     private final int DB_PASSWORD_COLUMN = 3;
     private final int DB_TYPE_COLUMN = 4;
+    private ResultSet results;
     
     public Validation(String username, String password) {
         this.username = username;
@@ -30,24 +31,26 @@ public class Validation {
     private void connectToDB() throws Exception {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
         Statement test = con.createStatement();
-        ResultSet results = test.executeQuery("select * from credentials");
+        results = test.executeQuery("select * from credentials");
+        results.first();
         
-        
-        // Check username (db column 2)
-        if (!checkMatch(DB_USERNAME_COLUMN, username, results)) {
+        // Check username
+        if (!checkUsername(DB_USERNAME_COLUMN, username)) {
             validationFailure();
         } else {
-            // Check password (column 3)
-            if (!checkMatch(DB_PASSWORD_COLUMN, password, results)) {
+            // Check password
+            if (!results.getString(DB_PASSWORD_COLUMN).equalsIgnoreCase(password)) {
                 validationFailure();
             } else {
                 // Check user type
-                if (checkMatch(DB_TYPE_COLUMN, "S", results)) {
+                if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("S")) {
+                    System.out.println("Valid Credentials - User is a Student");
                     /*
                     StudentScreen student = new StudentScreen(username);
                     student.setVisible(true);
                     */
-                } else if (checkMatch(DB_TYPE_COLUMN, "T", results)) {
+                } else if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("T")) {
+                    System.out.println("Valid Credentials - User is a Teacher");
                     /*
                     TeacherScreen teacher = new TeacherScreen(username);
                     teacher.setVisible(true);
@@ -55,26 +58,23 @@ public class Validation {
                 }
             }
         }
-        
         con.close();
     }
     
-    private void validationFailure() {
-        LoginScreen loginScreen = new LoginScreen(false);
-        loginScreen.setVisible(true);
-    }
-    
-    private boolean checkMatch(int columnNumber, String testString, ResultSet results) throws Exception {
-        results.first();
+    private boolean checkUsername(int usernameColumn, String username) throws Exception {
         while (!results.isAfterLast()) {
-            if (results.getString(columnNumber).equalsIgnoreCase(testString)) {
+            if (results.getString(usernameColumn).equalsIgnoreCase(username)) {
                 return true;
             } else {
                 results.next();
             }
         }
-        
         return false;
     }
         
+    private void validationFailure() {
+        LoginScreen loginScreen = new LoginScreen(false);
+        loginScreen.setVisible(true);
+    }
+    
 }
