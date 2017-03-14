@@ -5,6 +5,8 @@
  */
 package com.hmsdevelopment.teachingassistant;
 
+import java.util.Arrays;
+
 /**
  *
  * @author stephen.r.brayson
@@ -13,6 +15,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginScreen
+     * @param authError
      */
     public LoginScreen(boolean authError) {
         initComponents();
@@ -36,8 +39,8 @@ public class LoginScreen extends javax.swing.JFrame {
         errorMessage = new javax.swing.JLabel();
         loginHeader = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
         submit = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +60,7 @@ public class LoginScreen extends javax.swing.JFrame {
         exit.setBorder(null);
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
+        exit.setFocusPainted(false);
         exit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,17 +87,13 @@ public class LoginScreen extends javax.swing.JFrame {
         username.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 56)); // NOI18N
         username.setForeground(new java.awt.Color(34, 34, 34));
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        username.setText("username");
         username.setBorder(null);
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 497, 628, 78));
-
-        password.setBackground(new java.awt.Color(255, 253, 237));
-        password.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 56)); // NOI18N
-        password.setForeground(new java.awt.Color(34, 34, 34));
-        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        password.setText("*********");
-        password.setBorder(null);
-        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 593, 628, -1));
 
         submit.setBackground(new java.awt.Color(240, 123, 63));
         submit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
@@ -102,8 +102,20 @@ public class LoginScreen extends javax.swing.JFrame {
         submit.setBorder(null);
         submit.setBorderPainted(false);
         submit.setContentAreaFilled(false);
+        submit.setFocusPainted(false);
         submit.setOpaque(true);
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
         getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 690, 420, 60));
+
+        password.setBackground(new java.awt.Color(255, 253, 237));
+        password.setFont(new java.awt.Font("Arial", 0, 50)); // NOI18N
+        password.setForeground(new java.awt.Color(34, 34, 34));
+        password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 590, 628, 78));
 
         background.setBackground(new java.awt.Color(45, 64, 89));
         background.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(34, 34, 34), 5));
@@ -118,13 +130,22 @@ public class LoginScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
 
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()));
+        this.dispose();
+    }//GEN-LAST:event_submitActionPerformed
+
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JLabel errorMessage;
     private javax.swing.JButton exit;
     private javax.swing.JLabel loginHeader;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private javax.swing.JButton submit;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
