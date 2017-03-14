@@ -68,7 +68,6 @@ public class Validation {
         results.first();
         while (!results.isAfterLast()) {
             if (results.getString(columnNumber).equalsIgnoreCase(testString)) {
-                System.out.println(testString + " and " + results.getString(columnNumber) + " match");
                 return true;
             } else {
                 results.next();
