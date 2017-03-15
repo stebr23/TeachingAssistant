@@ -1,8 +1,5 @@
 package com.hmsdevelopment.teachingassistant;
 
-import java.awt.event.KeyEvent;
-import javax.swing.SwingUtilities;
-
 public class LoginScreen extends javax.swing.JFrame {
 
     /**
