@@ -14,6 +14,10 @@ public class LoginScreen extends javax.swing.JFrame {
         
     }
 
+    LoginScreen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -118,6 +122,7 @@ public class LoginScreen extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()));
         this.dispose();
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -134,4 +139,8 @@ public class LoginScreen extends javax.swing.JFrame {
     private javax.swing.JButton submit;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
+    private void Student() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

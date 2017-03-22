@@ -6,8 +6,6 @@
 
 package com.hmsdevelopment.teachingassistant;
 
-import hms_devlopment.LogIn;
-
 /**
  *
  * @author S1127586
@@ -21,6 +19,10 @@ public class Student extends javax.swing.JFrame {
      */
     public Student() {
         initComponents();
+    }
+
+    Student(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -44,6 +46,7 @@ public class Student extends javax.swing.JFrame {
         SignOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(45, 64, 89));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Hi,");
@@ -136,7 +139,7 @@ public class Student extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignOutActionPerformed
-LogIn LI = new LogIn ();
+LoginScreen LI = new LoginScreen ();
 LI.show();
 this.hide();
     }//GEN-LAST:event_SignOutActionPerformed

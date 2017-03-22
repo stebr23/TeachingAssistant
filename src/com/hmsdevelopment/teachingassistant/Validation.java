@@ -45,16 +45,16 @@ public class Validation {
                 // Check user type
                 if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("S")) {
                     System.out.println("Valid Credentials - User is a Student");
-                    /*
-                    StudentScreen student = new StudentScreen(username);
-                    student.setVisible(true);
-                    */
+                    
+                    Student SS = new Student(username);
+                    SS.setVisible(true);
+                    
                 } else if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("T")) {
                     System.out.println("Valid Credentials - User is a Teacher");
-                    /*
-                    TeacherScreen teacher = new TeacherScreen(username);
-                    teacher.setVisible(true);
-                    */
+                    
+                    Teacher TS = new Teacher(username);
+                    TS.setVisible(true);
+                    
                 }
             }
         }
