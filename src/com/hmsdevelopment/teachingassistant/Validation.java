@@ -1,5 +1,6 @@
 package com.hmsdevelopment.teachingassistant;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,6 +38,7 @@ public class Validation {
         // Check username
         if (!checkUsername(DB_USERNAME_COLUMN, username)) {
             validationFailure();
+            System.out.println(DB_USERNAME_COLUMN + username);
         } else {
             // Check password
             if (!results.getString(DB_PASSWORD_COLUMN).equalsIgnoreCase(password)) {
@@ -47,6 +49,7 @@ public class Validation {
                     System.out.println("Valid Credentials - User is a Student");
                     
                     Student SS = new Student(username);
+                    SS.getContentPane().setBackground(new Color(45,64,89));
                     SS.setVisible(true);
                     
                 } else if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("T")) {

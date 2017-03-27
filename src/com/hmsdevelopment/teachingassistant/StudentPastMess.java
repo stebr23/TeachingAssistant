@@ -110,14 +110,14 @@ public class StudentPastMess extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
-        Student SS = new  Student();
+        Student SS = new  Student(text);
         
              //NAME
       text=sName.getText();
-SS.sName.setText(text);
+      SS.sName.setText(text);
 
-        SS.show();
-        this.hide();
+      SS.show();
+      this.hide();
     }//GEN-LAST:event_jBackActionPerformed
 
     /**
