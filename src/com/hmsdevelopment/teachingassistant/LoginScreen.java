@@ -14,6 +14,10 @@ public class LoginScreen extends javax.swing.JFrame {
         
     }
 
+    LoginScreen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,7 +31,7 @@ public class LoginScreen extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(45, 64, 89));
+        setBackground(new java.awt.Color(59, 45, 89));
         setMaximumSize(new java.awt.Dimension(1280, 800));
         setMinimumSize(new java.awt.Dimension(1280, 800));
         setName("Login Screen"); // NOI18N
@@ -80,7 +84,7 @@ public class LoginScreen extends javax.swing.JFrame {
         });
         getContentPane().add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 497, 628, 78));
 
-        submit.setBackground(new java.awt.Color(240, 123, 63));
+        submit.setBackground(new java.awt.Color(227, 74, 23));
         submit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 253, 237));
         submit.setText("submit");
@@ -118,6 +122,7 @@ public class LoginScreen extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()));
         this.dispose();
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -134,4 +139,8 @@ public class LoginScreen extends javax.swing.JFrame {
     private javax.swing.JButton submit;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
+    private void Student() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
