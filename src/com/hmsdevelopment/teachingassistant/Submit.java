@@ -21,11 +21,7 @@ public class Submit {
     String messagePriority;
     String courseCode;
     String username;
-    private final int DB_courseCode_COLUMN = 1;
-    private final int DB_messageID_COLUMN = 2;
-    private final int DB_message_COLUMN = 3;
-    private final int DB_messagePriority_COLUMN = 4;
-    private final int DB_username_COLUMN = 5;
+   
     
    public Submit(String courseCode , String message, String messagePriority, String username) {
        this.username = username;
@@ -39,8 +35,7 @@ public class Submit {
             //connectToDB();
              Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
         Statement statement = con.createStatement();
-        //statement.executeUpdate("INSERT INTO message " + "VALUES (courseCode, message, messagePriority,username)");
-       // statement.executeUpdate("INSERT INTO message " + "VALUES (1001, courseCode', 'Mr.', 'Springfield')");
+       
         
         String SQL = "INSERT INTO message (username,coursecode,message,messagePriority) VALUES ('" + username + "','" + courseCode +  "','" + message +  "','"  + messagePriority + "')";
         statement.executeUpdate(SQL);
@@ -52,14 +47,6 @@ public class Submit {
         }
     }
     
-    //private void connectToDB() throws Exception {
-     //   Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-    //    Statement statement = con.createStatement();
-        //statement.executeUpdate("INSERT INTO message " + "VALUES (courseCode, message, messagePriority,username)");
-   //     statement.executeUpdate("INSERT INTO message " + "VALUES (1001, 'courseCode', 'Mr.', 'Springfield')");
-
-        //results = statement.executeQuery("select * from credentials");
-        //results.first();
-   // }
+   
 }
     
