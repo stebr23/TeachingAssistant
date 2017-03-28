@@ -35,6 +35,7 @@ public class Validation {
         results = statement.executeQuery("select * from credentials");
         results.first();
         
+        
         // Check username
         if (!checkUsername(DB_USERNAME_COLUMN, username)) {
             validationFailure();

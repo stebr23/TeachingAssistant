@@ -5,12 +5,14 @@
  */
 package com.hmsdevelopment.teachingassistant;
 
+import java.awt.Color;
+
 /**
  *
  * @author S1127586
  */
 public class Student extends javax.swing.JFrame {
-
+    String history;
     String username;
     String courseID;
     String messagePriority;
@@ -24,6 +26,7 @@ public class Student extends javax.swing.JFrame {
         initComponents();
         this.username = username;
         sName.setText("Welcome " + username);
+        history = "hello";
     }
     
 
@@ -58,7 +61,12 @@ public class Student extends javax.swing.JFrame {
         courseCode.setBackground(new java.awt.Color(253, 229, 215));
         courseCode.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         courseCode.setForeground(new java.awt.Color(168, 67, 5));
-        courseCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        courseCode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CMP101", "CMP102", "CMP103", }));
+        courseCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseCodeActionPerformed(evt);
+            }
+        });
 
         jMessage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jMessage.setForeground(new java.awt.Color(34, 34, 34));
@@ -70,7 +78,7 @@ public class Student extends javax.swing.JFrame {
         messPrio.setBackground(new java.awt.Color(253, 229, 215));
         messPrio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         messPrio.setForeground(new java.awt.Color(168, 67, 5));
-        messPrio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        messPrio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "High", "Medium", "Low", "Email" }));
 
         jButton1.setBackground(new java.awt.Color(48, 99, 142));
         jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -184,9 +192,12 @@ public class Student extends javax.swing.JFrame {
     }//GEN-LAST:event_SignOutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        StudentPastMess SPM = new StudentPastMess();
+        
+        StudentPastMess SPM = new StudentPastMess(username);
+        SPM.getContentPane().setBackground(new Color(45,64,89));
+        
         //NAME
-        sName.setText(username);
+        //sName.setText(username);
 
         SPM.setVisible(true);
         this.dispose();
@@ -200,8 +211,15 @@ public class Student extends javax.swing.JFrame {
         courseID = String.valueOf(courseCode.getSelectedItem());
         messagePriority = String.valueOf(courseCode.getSelectedItem());
         Submit submit = new Submit(courseID, jMessage.getText(),messagePriority,username);
+        confirmation cfm = new confirmation();
+        cfm.getContentPane().setBackground(new Color(45,64,89));
+        cfm.show();
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void courseCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseCodeActionPerformed
+       
+    }//GEN-LAST:event_courseCodeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

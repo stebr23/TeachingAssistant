@@ -5,6 +5,7 @@
  */
 package com.hmsdevelopment.teachingassistant;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -39,6 +40,7 @@ public class Submit {
         
         String SQL = "INSERT INTO message (username,coursecode,message,messagePriority) VALUES ('" + username + "','" + courseCode +  "','" + message +  "','"  + messagePriority + "')";
         statement.executeUpdate(SQL);
+        
 
         
         
