@@ -209,7 +209,7 @@ public class Student extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         courseID = String.valueOf(courseCode.getSelectedItem());
-        messagePriority = String.valueOf(courseCode.getSelectedItem());
+        messagePriority = String.valueOf(messPrio.getSelectedItem());
         Submit submit = new Submit(courseID, jMessage.getText(),messagePriority,username);
         confirmation cfm = new confirmation();
         cfm.getContentPane().setBackground(new Color(45,64,89));

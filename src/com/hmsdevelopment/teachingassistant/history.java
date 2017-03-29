@@ -52,6 +52,7 @@ public class history {
        
         if(results.getString(1).equals(username)){
             System.out.println(results.getString(3)+"                "+end);
+            
             displayHistory DH = new displayHistory(username,end);
             DH.getContentPane().setBackground(new Color(45,64,89));
             DH.setVisible(true);
