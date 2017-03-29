@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class LoginScreen extends javax.swing.JFrame {
-
-    private boolean failure;
     
     /**
      * Creates new form LoginScreen
