@@ -62,7 +62,7 @@ public class LoginScreen extends javax.swing.JFrame {
         noConnection.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         noConnection.setForeground(new java.awt.Color(168, 67, 5));
         noConnection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        noConnection.setText("sorry! no database connection found");
+        noConnection.setText("no database connection found");
         noConnection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 0), 2));
         noConnection.setOpaque(true);
         getContentPane().add(noConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 630, 80));
