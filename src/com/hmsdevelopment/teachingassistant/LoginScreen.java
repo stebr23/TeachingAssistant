@@ -131,6 +131,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         try {
+            noConnection.setVisible(false);
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
             Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()), con);
             this.dispose();
