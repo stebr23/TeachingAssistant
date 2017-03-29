@@ -92,7 +92,7 @@ public class MessageTeacher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
-        Teacher T = new Teacher();
+        Teacher T = new Teacher(text);
          
         //NAME
       text=tName.getText();
