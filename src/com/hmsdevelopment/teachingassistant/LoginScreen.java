@@ -1,21 +1,23 @@
 package com.hmsdevelopment.teachingassistant;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class LoginScreen extends javax.swing.JFrame {
 
+    private boolean failure;
+    
     /**
      * Creates new form LoginScreen
      * @param authError
      */
     public LoginScreen(boolean authError) {
         initComponents();
+        noConnection.setVisible(false);
         if (!authError) {
             errorMessage.setVisible(false);
         }
         
-    }
-
-    LoginScreen() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @SuppressWarnings("unchecked")
@@ -23,6 +25,7 @@ public class LoginScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         exit = new javax.swing.JButton();
+        noConnection = new javax.swing.JLabel();
         errorMessage = new javax.swing.JLabel();
         loginHeader = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
@@ -32,12 +35,10 @@ public class LoginScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(59, 45, 89));
-        setMaximumSize(new java.awt.Dimension(1280, 800));
         setMinimumSize(new java.awt.Dimension(1280, 800));
         setName("Login Screen"); // NOI18N
         setUndecorated(true);
         setResizable(false);
-        setSize(new java.awt.Dimension(1280, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         exit.setBackground(new java.awt.Color(204, 51, 0));
@@ -56,6 +57,15 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 10, 80, 60));
+
+        noConnection.setBackground(new java.awt.Color(253, 229, 215));
+        noConnection.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        noConnection.setForeground(new java.awt.Color(168, 67, 5));
+        noConnection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noConnection.setText("sorry! no database connection found");
+        noConnection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 0), 2));
+        noConnection.setOpaque(true);
+        getContentPane().add(noConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 630, 80));
 
         errorMessage.setBackground(new java.awt.Color(253, 229, 215));
         errorMessage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
@@ -120,9 +130,14 @@ public class LoginScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()));
-        this.dispose();
-
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+            Validation validation = new Validation(username.getText(), String.copyValueOf(password.getPassword()), con);
+            this.dispose();
+        } catch (Exception e) {
+            noConnection.setVisible(true);
+        }
+        
     }//GEN-LAST:event_submitActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -135,6 +150,7 @@ public class LoginScreen extends javax.swing.JFrame {
     private javax.swing.JLabel errorMessage;
     private javax.swing.JButton exit;
     private javax.swing.JLabel loginHeader;
+    private javax.swing.JLabel noConnection;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton submit;
     private javax.swing.JTextField username;

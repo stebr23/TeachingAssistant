@@ -15,11 +15,14 @@ public class Validation {
     private final int DB_USERNAME_COLUMN = 2;
     private final int DB_PASSWORD_COLUMN = 3;
     private final int DB_TYPE_COLUMN = 4;
+    private Connection con;
     private ResultSet results;
+    private Statement statement;
     
-    public Validation(String username, String password) {
+    public Validation(String username, String password, Connection con) {
         this.username = username;
         this.password = password;
+        this.con = con;
         
         
         try {
@@ -30,8 +33,7 @@ public class Validation {
     }
     
     private void connectToDB() throws Exception {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-        Statement statement = con.createStatement();
+        statement = con.createStatement();
         results = statement.executeQuery("select * from credentials");
         results.first();
         
@@ -52,13 +54,17 @@ public class Validation {
                     Student SS = new Student(username);
                     SS.getContentPane().setBackground(new Color(45,64,89));
                     SS.setVisible(true);
-                    
+                    results.close();
+                    statement.close();
+                    con.close();
                 } else if (results.getString(DB_TYPE_COLUMN).equalsIgnoreCase("T")) {
                     System.out.println("Valid Credentials - User is a Teacher");
                     
                     Teacher TS = new Teacher(username);
                     TS.setVisible(true);
-                    
+                    results.close();
+                    statement.close();
+                    con.close();
                 }
             }
         }
