@@ -25,6 +25,7 @@ public class Student extends javax.swing.JFrame {
     public Student(String username) {
         initComponents();
         this.username = username;
+        this.getContentPane().setBackground(new Color(45,64,89));
         sName.setText("Welcome " + username);
         history = "hello";
     }
@@ -192,14 +193,16 @@ public class Student extends javax.swing.JFrame {
     }//GEN-LAST:event_SignOutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        StudentPastMess SPM = new StudentPastMess(username);
-        SPM.getContentPane().setBackground(new Color(45,64,89));
+        //StudentPastMess SPM = new StudentPastMess(username);
+        //SPM.getContentPane().setBackground(new Color(45,64,89));
         
         //NAME
         //sName.setText(username);
 
-        SPM.setVisible(true);
+        //SPM.setVisible(true);
+        displayHistory dh = new displayHistory(username);
+        dh.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
