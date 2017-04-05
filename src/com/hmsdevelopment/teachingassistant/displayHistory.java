@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 public class displayHistory extends javax.swing.JFrame {
 
     private final String username;
-    private final ArrayList<String> messagesFromDb = new ArrayList<String>();
-    private final ArrayList<String> messageIds = new ArrayList<String>();
+    private final ArrayList<String> messagesFromDb = new ArrayList<>();
+    private final ArrayList<String> messageIds = new ArrayList<>();
     private Connection con;
     private Statement statement;
     private ResultSet results;
@@ -159,11 +159,7 @@ public class displayHistory extends javax.swing.JFrame {
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
         try {
             results.absolute(messageList.getSelectedIndex() + 1);
-            System.out.println(results.getRow());
             statement.execute("delete from message where messageID = '" + messageIds.get(messageList.getSelectedIndex()) + "'");
-//            displayHistory dh = new displayHistory(username);
-//            dh.setVisible(true);
-//            this.dispose();
             getMessageForCourseFromDB();
         } catch (SQLException ex) {
             Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,17 +186,13 @@ public class displayHistory extends javax.swing.JFrame {
         results = statement.executeQuery("select * from message where username = '" 
                 + username + "' and courseCode = '" + courseList.getSelectedItem() + "' order by courseCode");
         
-        
         if (results.first()) {
             while (!results.isAfterLast()) {
                 messagesFromDb.add(results.getString("message"));
                 messageIds.add(results.getString("messageID"));
                 results.next();
             }
-        } else {
-            messagesFromDb.add("");
-        }
-        
+        } 
         
         messageList.setListData(messagesFromDb.toArray(new String[0]));
         
