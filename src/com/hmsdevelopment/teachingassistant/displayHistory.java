@@ -3,23 +3,32 @@ package com.hmsdevelopment.teachingassistant;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class displayHistory extends javax.swing.JFrame {
 
-    private final String USERNAME;
-    private final ArrayList<String> MESSAGES_LIST;
-
+    private final String username;
+    private final ArrayList<String> messagesFromDb = new ArrayList<String>();
+    private final ArrayList<String> messageIds = new ArrayList<String>();
+    private Connection con;
+    private Statement statement;
+    private ResultSet results;
+    
+    
     public displayHistory(String username) {
         initComponents();
         this.getContentPane().setBackground(new Color(45, 64, 89));
-        this.USERNAME = username;
-        history h = new history(username);
-        this.MESSAGES_LIST = h.getList();
-        sName.setText("Welcome " + username);
-        setMessages(courseList.getSelectedItem().toString());
+        this.username = username;
+        try {
+            getMessageForCourseFromDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -100,7 +109,7 @@ public class displayHistory extends javax.swing.JFrame {
                 exit1ActionPerformed(evt);
             }
         });
-        getContentPane().add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1232, 0, 78, 52));
+        getContentPane().add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 0, 78, 52));
 
         messageList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -116,49 +125,49 @@ public class displayHistory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void courseListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseListActionPerformed
-        setMessages(courseList.getSelectedItem().toString());
+        try {
+            getMessageForCourseFromDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_courseListActionPerformed
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
-        Student s = new Student(USERNAME);
-        s.setVisible(true);
-        this.dispose();
+        try {
+            results.close();
+            statement.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Student s = new Student(username);
+            s.setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_jBackActionPerformed
 
     private void exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit1ActionPerformed
-        this.dispose();
+        try {
+            results.close();
+            statement.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            this.dispose();
     }//GEN-LAST:event_exit1ActionPerformed
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
-        // get list item
-        // message to delete == combobox item location + list item location
-        int courseListModifier;
-
-        if (courseList.getSelectedIndex() > 0) {
-            courseListModifier = courseList.getSelectedIndex() + 1;
-        } else {
-            courseListModifier = 0;
-        }
-
-        int fieldLocation = courseListModifier + messageList.getSelectedIndex();
-
-        String messageID = MESSAGES_LIST.get(fieldLocation);
-
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-            PreparedStatement preparedStmt = con.prepareStatement("delete from message where messageID = '" + messageID + "'");
-            preparedStmt.execute();
-            preparedStmt.close();
-            con.close();
-            System.out.println("Message Deleted");
+            results.absolute(messageList.getSelectedIndex() + 1);
+            System.out.println(results.getRow());
+            statement.execute("delete from message where messageID = '" + messageIds.get(messageList.getSelectedIndex()) + "'");
+//            displayHistory dh = new displayHistory(username);
+//            dh.setVisible(true);
+//            this.dispose();
+            getMessageForCourseFromDB();
         } catch (SQLException ex) {
-            System.out.println("Message NOT Deleted");
+            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        displayHistory dh2 = new displayHistory(USERNAME);
-        dh2.setVisible(true);
-        this.dispose();
-
     }//GEN-LAST:event_jDeleteActionPerformed
 
 
@@ -173,15 +182,28 @@ public class displayHistory extends javax.swing.JFrame {
     public javax.swing.JLabel sName;
     // End of variables declaration//GEN-END:variables
 
-    private void setMessages(String courseCode) {
-        ArrayList<String> listData = new ArrayList<>();
-
-        for (int i = 0; i < MESSAGES_LIST.size(); i++) {
-            if (courseCode.equalsIgnoreCase(MESSAGES_LIST.get(i).substring(3, 9))) {
-                listData.add(MESSAGES_LIST.get(i).substring(9));
+    private void getMessageForCourseFromDB() throws SQLException {
+        messagesFromDb.clear();
+        messageIds.clear();
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+        statement = con.createStatement();
+        results = statement.executeQuery("select * from message where username = '" 
+                + username + "' and courseCode = '" + courseList.getSelectedItem() + "' order by courseCode");
+        
+        
+        if (results.first()) {
+            while (!results.isAfterLast()) {
+                messagesFromDb.add(results.getString("message"));
+                messageIds.add(results.getString("messageID"));
+                results.next();
             }
+        } else {
+            messagesFromDb.add("");
         }
-
-        messageList.setListData(listData.toArray(new String[0]));
+        
+        
+        messageList.setListData(messagesFromDb.toArray(new String[0]));
+        
     }
+    
 }

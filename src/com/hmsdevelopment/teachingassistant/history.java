@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class history {
+
     String end;
     String username;
     String next;
@@ -25,8 +26,6 @@ public class history {
     public history(String username) {
         this.username = username;
 
-        System.out.println(username);
-
         try {
             connectToDB();
         } catch (Exception ex) {
@@ -41,37 +40,16 @@ public class history {
         results = statement.executeQuery("select * from message where username = '" + username + "' order by courseCode");
 
         results.first();
-        
-        System.out.println("Username: " + username);
-        System.out.println("Username in db: " + results.getString(1));
-        
-//        do {
-//            if (results.getString(1).equalsIgnoreCase(username)) {
-//                message = results.getString(4) + results.getString(2) + results.getString(3);
-//                System.out.println("Message : " + message);
-//                list.add(message);
-//            } else {
-//                System.out.println("isn't the particular user");
-//            }
-//            results.next();
-//        } while (!results.isAfterLast());
 
-            while (!results.isAfterLast()) {
-                message = results.getString(5) + results.getString(2) + results.getString(3);
-                System.out.println("Message : " + message);
-                list.add(message);
-                results.next();
-            }
-
-        
-        System.out.println(list.toString());
-        
+        while (!results.isAfterLast()) {
+            message = results.getString(5) + results.getString(2) + results.getString(3);
+            list.add(message);
+            results.next();
+        }
     }
 
     public ArrayList getList() {
         return list;
     }
-    
-    
 
 }

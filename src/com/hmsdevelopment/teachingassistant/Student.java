@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hmsdevelopment.teachingassistant;
 
 import java.awt.Color;
@@ -193,16 +188,8 @@ public class Student extends javax.swing.JFrame {
     }//GEN-LAST:event_SignOutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //StudentPastMess SPM = new StudentPastMess(username);
-        //SPM.getContentPane().setBackground(new Color(45,64,89));
-        
-        //NAME
-        //sName.setText(username);
-
-        //SPM.setVisible(true);
         displayHistory dh = new displayHistory(username);
         dh.setVisible(true);
-        
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -216,7 +203,7 @@ public class Student extends javax.swing.JFrame {
         Submit submit = new Submit(courseID, jMessage.getText(),messagePriority,username);
         confirmation cfm = new confirmation();
         cfm.getContentPane().setBackground(new Color(45,64,89));
-        cfm.show();
+        cfm.setVisible(true);
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -237,4 +224,7 @@ public class Student extends javax.swing.JFrame {
     private javax.swing.JComboBox messPrio;
     public javax.swing.JLabel sName;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
