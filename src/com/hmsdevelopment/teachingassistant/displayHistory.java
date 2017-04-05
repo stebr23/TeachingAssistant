@@ -5,24 +5,37 @@
  */
 package com.hmsdevelopment.teachingassistant;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author harvey.horton
  */
 public class displayHistory extends javax.swing.JFrame {
         String username;
-        String end;
+        String message;
+        ArrayList list;
+        int i = 0;
+        String CMP;
     /**
      * Creates new form displayHistory
+     * @param username
+     * @param list
      */
-    public displayHistory(String username, String end) {
+    public displayHistory(String username,ArrayList list ) {
         initComponents();
         this.username = username;
-        this.end = end;
-        
+        this.list = list;
+        System.out.println(list);
         sName.setText("Welcome " + username);
-        jTextField1.setText(end);
+        while( i < list.size()){
+            jTextField1.append((String) list.get(i)+'\n');
+            i++;
+        }
+        //jTextField1.setText((String) list.get(0)+'\n'+(String) list.get(1));
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,40 +46,41 @@ public class displayHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
         jBack = new javax.swing.JButton();
         jDelete = new javax.swing.JButton();
         exit1 = new javax.swing.JButton();
-        sName = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextField1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1280, 800));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1280, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        sName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
+        sName.setForeground(new java.awt.Color(255, 253, 237));
+        sName.setText("jLabel2");
+        getContentPane().add(sName, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 16, 454, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 253, 237));
         jLabel2.setText("Select a past message");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 79, -1, -1));
 
         jComboBox1.setBackground(new java.awt.Color(253, 229, 215));
         jComboBox1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(168, 67, 5));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CMP101", "CMP102", "CMP103" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-
-        jTextField1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(34, 34, 34));
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 138, 716, 34));
 
         jBack.setBackground(new java.awt.Color(48, 99, 142));
         jBack.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -77,11 +91,13 @@ public class displayHistory extends javax.swing.JFrame {
                 jBackActionPerformed(evt);
             }
         });
+        getContentPane().add(jBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 530, -1, -1));
 
         jDelete.setBackground(new java.awt.Color(215, 38, 56));
         jDelete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jDelete.setForeground(new java.awt.Color(255, 253, 237));
         jDelete.setText("Delete");
+        getContentPane().add(jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(881, 530, -1, -1));
 
         exit1.setBackground(new java.awt.Color(204, 51, 0));
         exit1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -93,79 +109,40 @@ public class displayHistory extends javax.swing.JFrame {
         exit1.setFocusPainted(false);
         exit1.setFocusable(false);
         exit1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        exit1.setPreferredSize(new java.awt.Dimension(1280, 800));
         exit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exit1ActionPerformed(evt);
             }
         });
+        getContentPane().add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1232, 0, 78, 52));
 
-        sName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
-        sName.setForeground(new java.awt.Color(255, 253, 237));
-        sName.setText("jLabel2");
+        jTextField1.setColumns(20);
+        jTextField1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jTextField1.setRows(5);
+        jScrollPane1.setViewportView(jTextField1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBack)
-                        .addGap(516, 516, 516)
-                        .addComponent(jDelete)))
-                .addContainerGap(270, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(jLabel2)
-                .addGap(37, 37, 37)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBack)
-                    .addComponent(jDelete))
-                .addContainerGap(153, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 720, 310));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit1ActionPerformed
-        //temp code
-
-       
-    }//GEN-LAST:event_exit1ActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        history history = new history(username);
+        CMP = jComboBox1.getName();
+        System.out.println(CMP);
+        history history = new history(username,CMP);
+        this.hide();
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
-      
+       this.hide();
     }//GEN-LAST:event_jBackActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit1ActionPerformed
+        this.hide();
+    }//GEN-LAST:event_exit1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,7 +185,8 @@ public class displayHistory extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JButton jDelete;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel sName;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextField1;
+    public javax.swing.JLabel sName;
     // End of variables declaration//GEN-END:variables
 }

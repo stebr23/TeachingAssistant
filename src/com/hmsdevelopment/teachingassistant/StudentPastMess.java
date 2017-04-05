@@ -61,14 +61,17 @@ public class StudentPastMess extends javax.swing.JFrame {
         setBackground(new java.awt.Color(45, 64, 89));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1280, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         sName.setForeground(new java.awt.Color(255, 253, 237));
         sName.setText("jLabel2");
+        getContentPane().add(sName, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 16, 454, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 253, 237));
         jLabel2.setText("Select a past message");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 79, -1, -1));
 
         jComboBox1.setBackground(new java.awt.Color(253, 229, 215));
         jComboBox1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -79,10 +82,12 @@ public class StudentPastMess extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 138, 716, 34));
 
         jTextField1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(34, 34, 34));
         jTextField1.setText("jTextField1");
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 188, 716, 311));
 
         jBack.setBackground(new java.awt.Color(48, 99, 142));
         jBack.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -93,11 +98,13 @@ public class StudentPastMess extends javax.swing.JFrame {
                 jBackActionPerformed(evt);
             }
         });
+        getContentPane().add(jBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 530, -1, -1));
 
         jDelete.setBackground(new java.awt.Color(215, 38, 56));
         jDelete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jDelete.setForeground(new java.awt.Color(255, 253, 237));
         jDelete.setText("Delete");
+        getContentPane().add(jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(881, 530, -1, -1));
 
         exit.setBackground(new java.awt.Color(204, 51, 0));
         exit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -109,6 +116,7 @@ public class StudentPastMess extends javax.swing.JFrame {
         exit.setFocusPainted(false);
         exit.setFocusable(false);
         exit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 331, -1, -1));
 
         exit1.setBackground(new java.awt.Color(204, 51, 0));
         exit1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -125,63 +133,7 @@ public class StudentPastMess extends javax.swing.JFrame {
                 exit1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDelete))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(500, 500, 500)
-                        .addComponent(jLabel2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
-                .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(exit)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(exit1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(30, 30, 30)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBack)
-                    .addComponent(jDelete))
-                .addGap(124, 124, 124))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(exit)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        getContentPane().add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1232, 0, 78, 52));
 
         pack();
         setLocationRelativeTo(null);
@@ -212,7 +164,8 @@ public class StudentPastMess extends javax.swing.JFrame {
     }//GEN-LAST:event_exit1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-         history history = new history(username);
+       String CMP = jComboBox1.getName();
+        history history = new history(username,CMP);
         
          
          
