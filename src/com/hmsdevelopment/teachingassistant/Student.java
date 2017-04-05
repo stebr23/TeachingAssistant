@@ -200,7 +200,7 @@ public class Student extends javax.swing.JFrame {
         //sName.setText(username);
 
         //SPM.setVisible(true);
-        displayHistory dh = new displayHistory(username);
+        StudentHistory dh = new StudentHistory(username);
         dh.setVisible(true);
         
         this.dispose();
@@ -214,7 +214,7 @@ public class Student extends javax.swing.JFrame {
         courseID = String.valueOf(courseCode.getSelectedItem());
         messagePriority = String.valueOf(messPrio.getSelectedItem());
         Submit submit = new Submit(courseID, jMessage.getText(),messagePriority,username);
-        confirmation cfm = new confirmation();
+        Confirmation cfm = new Confirmation();
         cfm.getContentPane().setBackground(new Color(45,64,89));
         cfm.show();
         
