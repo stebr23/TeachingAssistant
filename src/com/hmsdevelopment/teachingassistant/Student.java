@@ -218,7 +218,7 @@ public class Student extends javax.swing.JFrame {
         confirmation cfm = new confirmation();
         cfm.getContentPane().setBackground(new Color(45,64,89));
         cfm.setVisible(true);
-        
+        jMessage.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void courseCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseCodeActionPerformed
