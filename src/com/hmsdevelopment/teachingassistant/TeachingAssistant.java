@@ -13,12 +13,12 @@ public class TeachingAssistant {
     
     public static void main(String[] args) {
         
-        //LoginScreen login = new LoginScreen(false);
-        //login.setVisible(true);
-        
+        LoginScreen login = new LoginScreen(false);
+        login.setVisible(true);
+        /*
         Student s = new Student("testStudent1");
         s.setVisible(true);
-        
+        */
         /*
         // For Testing
         Validation val = new Validation("testStudent1", "password");

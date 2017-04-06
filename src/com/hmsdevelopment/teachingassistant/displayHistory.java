@@ -20,10 +20,11 @@ public class displayHistory extends javax.swing.JFrame {
     private ResultSet results;
     
     
-    public displayHistory(String username) {
+    public displayHistory(String username) throws SQLException {
         initComponents();
         this.getContentPane().setBackground(new Color(45, 64, 89));
         this.username = username;
+        populateCourseCodes();
         try {
             getMessageForCourseFromDB();
         } catch (SQLException ex) {
@@ -137,11 +138,11 @@ public class displayHistory extends javax.swing.JFrame {
             results.close();
             statement.close();
             con.close();
+            Student s = new Student(username);
+            s.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
         }
-            Student s = new Student(username);
-            s.setVisible(true);
             this.dispose();
     }//GEN-LAST:event_jBackActionPerformed
 
@@ -196,6 +197,20 @@ public class displayHistory extends javax.swing.JFrame {
         
         messageList.setListData(messagesFromDb.toArray(new String[0]));
         
+    }
+    
+        private void populateCourseCodes() throws SQLException {
+        Connection pCCCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+        Statement pCCStatement = pCCCon.createStatement();
+        ResultSet pCCResults = pCCStatement.executeQuery("select course1, course2, course3 from students where username = '" + username + "'");
+        pCCResults.first();
+        courseList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+            pCCResults.getString("course1"), 
+            pCCResults.getString("course2"), 
+            pCCResults.getString("course3") }));
+        pCCResults.close();
+        pCCStatement.close();
+        pCCCon.close();
     }
     
 }
