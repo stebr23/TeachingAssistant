@@ -5,6 +5,8 @@
  */
 package com.hmsdevelopment.teachingassistant;
 
+import java.awt.Color;
+
 /**
  *
  * @author game
@@ -17,6 +19,7 @@ public class MessageTeacher extends javax.swing.JFrame {
      */
     public MessageTeacher() {
         initComponents();
+        
     }
 
     /**
@@ -29,70 +32,54 @@ public class MessageTeacher extends javax.swing.JFrame {
     private void initComponents() {
 
         tName = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jBack = new javax.swing.JButton();
         jDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(45, 64, 89));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1280, 800));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tName.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        tName.setForeground(new java.awt.Color(255, 253, 237));
         tName.setText("jLabel2");
+        getContentPane().add(tName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 230, 40));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Hi,");
-
-        jLabel2.setText("jLabel2");
-
+        jBack.setBackground(new java.awt.Color(48, 99, 142));
+        jBack.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        jBack.setForeground(new java.awt.Color(255, 255, 255));
         jBack.setText("Back");
         jBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBackActionPerformed(evt);
             }
         });
+        getContentPane().add(jBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 650, 210, 50));
 
+        jDelete.setBackground(new java.awt.Color(215, 38, 56));
+        jDelete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        jDelete.setForeground(new java.awt.Color(255, 255, 255));
         jDelete.setText("Delete");
+        getContentPane().add(jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 650, 200, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBack)
-                        .addGap(37, 37, 37)
-                        .addComponent(jDelete)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBack)
-                    .addComponent(jDelete))
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(34, 34, 34));
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 829, 444));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
         Teacher T = new Teacher(text);
+        T.getContentPane().setBackground(new Color(45,64,89));
          
         //NAME
       text=tName.getText();
@@ -141,8 +128,8 @@ T.tName.setText(text);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBack;
     private javax.swing.JButton jDelete;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     public javax.swing.JLabel tName;
     // End of variables declaration//GEN-END:variables
 }

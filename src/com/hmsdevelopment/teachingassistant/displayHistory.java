@@ -25,6 +25,7 @@ public class displayHistory extends javax.swing.JFrame {
         this.getContentPane().setBackground(new Color(45, 64, 89));
         this.username = username;
         populateCourseCodes();
+        sName.setText(username+" message history");
         try {
             getMessageForCourseFromDB();
         } catch (SQLException ex) {
@@ -54,7 +55,7 @@ public class displayHistory extends javax.swing.JFrame {
         sName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         sName.setForeground(new java.awt.Color(255, 253, 237));
         sName.setText("jLabel2");
-        getContentPane().add(sName, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 16, 454, 30));
+        getContentPane().add(sName, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 16, 480, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 253, 237));
@@ -112,6 +113,7 @@ public class displayHistory extends javax.swing.JFrame {
         });
         getContentPane().add(exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 0, 78, 52));
 
+        messageList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         messageList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -158,6 +160,8 @@ public class displayHistory extends javax.swing.JFrame {
     }//GEN-LAST:event_exit1ActionPerformed
 
     private void jDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteActionPerformed
+//needs an error check as it breaks if none are selected
+
         try {
             results.absolute(messageList.getSelectedIndex() + 1);
             statement.execute("delete from message where messageID = '" + messageIds.get(messageList.getSelectedIndex()) + "'");
@@ -165,6 +169,7 @@ public class displayHistory extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_jDeleteActionPerformed
 
 
