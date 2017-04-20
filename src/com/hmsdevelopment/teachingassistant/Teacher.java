@@ -18,6 +18,7 @@ public class Teacher extends javax.swing.JFrame {
     
     private final ArrayList<String> messagesFromDb = new ArrayList<>();
     private final ArrayList<String> messageIds = new ArrayList<>();
+    private final ArrayList<String> messageSender = new ArrayList<>();
     private Connection con;
     private Statement statement;
     private ResultSet results;
@@ -26,6 +27,8 @@ public class Teacher extends javax.swing.JFrame {
         initComponents();
         this.username = username;
         populateCourseCodes();
+        populatePriorityList();
+        getMessageForCourseFromDB();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,12 +40,12 @@ public class Teacher extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         classList = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        helpPriority = new javax.swing.JComboBox();
         Vmessage = new javax.swing.JButton();
         SignOut = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        messageArea = new javax.swing.JList<>();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -83,11 +86,11 @@ public class Teacher extends javax.swing.JFrame {
         jLabel3.setText("Select a priority");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 320, -1));
 
-        jComboBox2.setBackground(new java.awt.Color(253, 229, 215));
-        jComboBox2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(168, 67, 5));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 200, 131, 38));
+        helpPriority.setBackground(new java.awt.Color(253, 229, 215));
+        helpPriority.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        helpPriority.setForeground(new java.awt.Color(168, 67, 5));
+        helpPriority.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(helpPriority, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 200, 131, 38));
 
         Vmessage.setBackground(new java.awt.Color(240, 123, 63));
         Vmessage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -125,12 +128,12 @@ public class Teacher extends javax.swing.JFrame {
         });
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1235, 0, 40, 40));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        messageArea.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(messageArea);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 980, 350));
 
@@ -164,34 +167,37 @@ public class Teacher extends javax.swing.JFrame {
     private javax.swing.JButton Vmessage;
     private javax.swing.JComboBox classList;
     private javax.swing.JButton exit;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox helpPriority;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> messageArea;
     public javax.swing.JLabel tName;
     // End of variables declaration//GEN-END:variables
 
       private void getMessageForCourseFromDB() throws SQLException {
         messagesFromDb.clear();
         messageIds.clear();
+        messageSender.clear();
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
         statement = con.createStatement();
-        results = statement.executeQuery("select * from message where username = '" 
-                + username + "' and courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
+        results = statement.executeQuery("select * from message where courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
         
         if (results.first()) {
             while (!results.isAfterLast()) {
+                
                 messagesFromDb.add(results.getString("message"));
                 messageIds.add(results.getString("messageID"));
                 results.next();
             }
         } 
-        
-        jList1.setListData(messagesFromDb.toArray(new String[0]));
+        System.out.println(messagesFromDb);
+        messageArea.setListData(messagesFromDb.toArray(new String[0]));
         
     }
+      //do we want a view all button?
+      
      private void populateCourseCodes() throws SQLException {
         Connection pCCCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
         Statement pCCStatement = pCCCon.createStatement();
@@ -202,13 +208,21 @@ public class Teacher extends javax.swing.JFrame {
             classList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
               pCCResults.getString("course1"), 
               pCCResults.getString("course2"), 
-              pCCResults.getString("course3") }));
+              pCCResults.getString("course3"), 
+              "View all"}));
         }
         pCCResults.close();
         pCCStatement.close();
         pCCCon.close();
     }
+     private void populatePriorityList(){
+        
+            helpPriority.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+              "High", 
+              "Medium",
+              "Low", 
+              "Email Support" }));
+        
+        }
     
-
-
 }
