@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class Teacher extends javax.swing.JFrame {
 
     String username;
-    
+    String message;
     private final ArrayList<String> messagesFromDb = new ArrayList<>();
     private final ArrayList<String> messageIds = new ArrayList<>();
     private final ArrayList<String> messageSender = new ArrayList<>();
@@ -160,14 +160,24 @@ public class Teacher extends javax.swing.JFrame {
     }//GEN-LAST:event_SignOutActionPerformed
 
     private void VmessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VmessageActionPerformed
-        MessageTeacher MT = new MessageTeacher();
-        MT.getContentPane().setBackground(new Color(45,64,89));
-        //NAME
-        username = tName.getText();
-        MT.tName.setText(username);
+        if(!messageArea.isSelectionEmpty()){
+            message =  messageArea.getSelectedValue();
+            MessageTeacher MT = new MessageTeacher();
+            MT.getContentPane().setBackground(new Color(45,64,89));
+            //NAME
+            username = tName.getText();
+            MT.tName.setText(username);
+            MT.selectedMessage.setText(message);
 
-        MT.show();
-        this.hide();
+            MT.show();
+            this.hide();
+        }
+        else{
+            //needs to display an actual error
+            
+            System.out.println("need to select a message");
+        }
+       
     }//GEN-LAST:event_VmessageActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
@@ -175,11 +185,16 @@ public class Teacher extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
     private void classListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classListActionPerformed
+       
         try {
             getMessageForCourseFromDB();
         } catch (SQLException ex) {
             Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+            
+        
     }//GEN-LAST:event_classListActionPerformed
 
     private void helpPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpPriorityActionPerformed
@@ -210,12 +225,16 @@ public class Teacher extends javax.swing.JFrame {
         messageSender.clear();
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
         statement = con.createStatement();
+        if(classList.getSelectedItem() != "View all"){
         results = statement.executeQuery("select * from message where courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
-        
+        }
+        else{
+            results = statement.executeQuery("select * from message");
+        }
         if (results.first()) {
             while (!results.isAfterLast()) {
                 messagesFromDb.add(results.getString("username") + "   -   "+results.getString("message"));
-                //messagesFromDb.add(results.getString("message"));
+                
                 messageIds.add(results.getString("messageID"));
                 results.next();
             }
@@ -249,7 +268,8 @@ public class Teacher extends javax.swing.JFrame {
               "High", 
               "Medium",
               "Low", 
-              "Email Support" }));
+              "Email Support",
+              "View all"}));
         
         }
     

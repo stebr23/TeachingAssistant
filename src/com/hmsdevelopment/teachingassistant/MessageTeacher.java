@@ -20,9 +20,8 @@ import java.util.logging.Logger;
 public class MessageTeacher extends javax.swing.JFrame {
 
     String text;
-    private Connection con;
-    private Statement statement;
-    private ResultSet results;
+    
+   
     /**
      * Creates new form MessageTeacher
      */
@@ -44,7 +43,7 @@ public class MessageTeacher extends javax.swing.JFrame {
         jBack = new javax.swing.JButton();
         jDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        selectedMessage = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(45, 64, 89));
@@ -74,11 +73,11 @@ public class MessageTeacher extends javax.swing.JFrame {
         jDelete.setText("Delete");
         getContentPane().add(jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 650, 200, 50));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(34, 34, 34));
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        selectedMessage.setColumns(20);
+        selectedMessage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        selectedMessage.setForeground(new java.awt.Color(34, 34, 34));
+        selectedMessage.setRows(5);
+        jScrollPane1.setViewportView(selectedMessage);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 829, 444));
 
@@ -88,9 +87,7 @@ public class MessageTeacher extends javax.swing.JFrame {
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
         try {
-            results.close();
-            statement.close();
-            con.close();
+           
             Teacher T = new Teacher(text);
             T.getContentPane().setBackground(new Color(45,64,89));
             
@@ -145,7 +142,7 @@ public class MessageTeacher extends javax.swing.JFrame {
     private javax.swing.JButton jBack;
     private javax.swing.JButton jDelete;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea selectedMessage;
     public javax.swing.JLabel tName;
     // End of variables declaration//GEN-END:variables
 }
