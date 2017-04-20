@@ -140,6 +140,7 @@ public class Teacher extends javax.swing.JFrame {
         });
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1235, 0, 40, 40));
 
+        messageArea.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         messageArea.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -168,6 +169,8 @@ public class Teacher extends javax.swing.JFrame {
             username = tName.getText();
             MT.tName.setText(username);
             MT.selectedMessage.setText(message);
+            MT.selectedMessage.setLineWrap(true);
+
 
             MT.show();
             this.hide();
@@ -199,7 +202,7 @@ public class Teacher extends javax.swing.JFrame {
 
     private void helpPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpPriorityActionPerformed
         try {
-            getMessageForCourseFromDB();
+            getPriorityForCourseFromDB();
         } catch (SQLException ex) {
             Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -233,7 +236,7 @@ public class Teacher extends javax.swing.JFrame {
         }
         if (results.first()) {
             while (!results.isAfterLast()) {
-                messagesFromDb.add(results.getString("username") + "   -   "+results.getString("message"));
+                 messagesFromDb.add(results.getString("username") + "  -  " + results.getString("messagePriority") + "   -   " + results.getString("message"));
                 
                 messageIds.add(results.getString("messageID"));
                 results.next();
@@ -253,6 +256,7 @@ public class Teacher extends javax.swing.JFrame {
         System.out.println(pCCResults.getString(4));
         if(pCCResults.getString(4).equalsIgnoreCase("student")){
             classList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+              "",
               pCCResults.getString("course1"), 
               pCCResults.getString("course2"), 
               pCCResults.getString("course3"), 
@@ -265,6 +269,7 @@ public class Teacher extends javax.swing.JFrame {
      private void populatePriorityList(){
         
             helpPriority.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
+              "",  
               "High", 
               "Medium",
               "Low", 
@@ -272,5 +277,33 @@ public class Teacher extends javax.swing.JFrame {
               "View all"}));
         
         }
-    
+    private void getPriorityForCourseFromDB() throws SQLException {
+        //if(helpPriority.getSelectedItem() == "View all" || classList.getSelectedItem() == "View all"){
+        //    getMessageForCourseFromDB();
+        //}
+        //else{
+        messagesFromDb.clear();
+        messageIds.clear();
+        messageSender.clear();
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+        statement = con.createStatement();
+        if(helpPriority.getSelectedItem() != "View all"){
+        results = statement.executeQuery("select * from message where courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
+        }
+        else{
+            results = statement.executeQuery("select * from message");
+        }
+        if (results.first()) {
+            while (!results.isAfterLast()) {
+                messagesFromDb.add(results.getString("username") + "  -  " + results.getString("messagePriority") + "   -   " + results.getString("message"));
+                
+                messageIds.add(results.getString("messageID"));
+                results.next();
+            }
+        } 
+        System.out.println(messagesFromDb);
+        messageArea.setListData(messagesFromDb.toArray(new String[0]));
+        
+    //}
+    }
 }
