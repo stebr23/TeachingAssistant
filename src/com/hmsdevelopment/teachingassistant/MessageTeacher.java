@@ -6,6 +6,12 @@
 package com.hmsdevelopment.teachingassistant;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +20,9 @@ import java.awt.Color;
 public class MessageTeacher extends javax.swing.JFrame {
 
     String text;
+    private Connection con;
+    private Statement statement;
+    private ResultSet results;
     /**
      * Creates new form MessageTeacher
      */
@@ -78,16 +87,23 @@ public class MessageTeacher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackActionPerformed
-        Teacher T = new Teacher(text);
-        T.getContentPane().setBackground(new Color(45,64,89));
-         
-        //NAME
-      text=tName.getText();
-T.tName.setText(text);
-
-
-        T.show();
-        this.hide();
+        try {
+            results.close();
+            statement.close();
+            con.close();
+            Teacher T = new Teacher(text);
+            T.getContentPane().setBackground(new Color(45,64,89));
+            
+            //NAME
+            text=tName.getText();
+            T.tName.setText(text);
+            
+            
+            T.show();
+            this.hide();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageTeacher.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBackActionPerformed
 
     /**
