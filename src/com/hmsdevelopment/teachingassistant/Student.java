@@ -22,7 +22,6 @@ public class Student extends javax.swing.JFrame {
      * Creates new form Student
      *
      * @param username
-     * @throws java.sql.SQLException
      */
     public Student(String username) throws SQLException {
         initComponents();
@@ -217,6 +216,7 @@ public class Student extends javax.swing.JFrame {
         messagePriority = String.valueOf(messPrio.getSelectedItem());
         Submit submit = new Submit(courseID, jMessage.getText(),messagePriority,username);
         confirmation cfm = new confirmation();
+        cfm.getContentPane().setBackground(new Color(45,64,89));
         cfm.setVisible(true);
         jMessage.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
