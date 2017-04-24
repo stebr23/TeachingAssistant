@@ -1,9 +1,12 @@
 package com.hmsdevelopment.teachingassistant;
 
+import java.awt.Color;
+
 public class confirmation extends javax.swing.JFrame {
 
     public confirmation() {
         initComponents();
+        this.getContentPane().setBackground(new Color(45,64,89));
     }
 
     @SuppressWarnings("unchecked")

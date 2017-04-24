@@ -60,7 +60,6 @@ public class Validation {
                     System.out.println("Valid Credentials - User is a Teacher");
                     
                     Teacher TS = new Teacher(username);
-                    TS.getContentPane().setBackground(new Color(45,64,89));
                     TS.setVisible(true);
                     results.close();
                     statement.close();
