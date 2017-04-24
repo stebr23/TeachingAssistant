@@ -29,7 +29,7 @@ public class Teacher extends javax.swing.JFrame {
             "Low",
             "Medium",
             "High",
-            "Email Support"
+            "Email"
         }));
         getMessageForCourseFromDB();
     }
