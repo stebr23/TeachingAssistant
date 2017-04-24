@@ -10,26 +10,27 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author S1127586
- */
 public class Teacher extends javax.swing.JFrame {
 
-    String username;
-    String message;
+    private String username;
+    private String message;
     private final ArrayList<String> messagesFromDb = new ArrayList<>();
     private final ArrayList<String> messageIds = new ArrayList<>();
     private final ArrayList<String> messageSender = new ArrayList<>();
-    private Connection con;
-    private Statement statement;
-    private ResultSet results;
 
     public Teacher(String username) throws SQLException {
         initComponents();
+        this.getContentPane().setBackground(new Color(45, 64, 89));
         this.username = username;
+        teacherName.setText("Welcome " + username);
         populateCourseCodes();
-        populatePriorityList();
+        helpPriority.setModel(new javax.swing.DefaultComboBoxModel(new String[]{
+            "All",
+            "Low",
+            "Medium",
+            "High",
+            "Email Support"
+        }));
         getMessageForCourseFromDB();
     }
 
@@ -38,7 +39,7 @@ public class Teacher extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        tName = new javax.swing.JLabel();
+        teacherName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         classList = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
@@ -64,13 +65,12 @@ public class Teacher extends javax.swing.JFrame {
         setBackground(new java.awt.Color(45, 64, 89));
         setMinimumSize(new java.awt.Dimension(1280, 800));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1280, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
-        tName.setForeground(new java.awt.Color(255, 255, 255));
-        tName.setText("jLabel2");
-        getContentPane().add(tName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 350, 60));
+        teacherName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
+        teacherName.setForeground(new java.awt.Color(255, 255, 255));
+        teacherName.setText("jLabel2");
+        getContentPane().add(teacherName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 680, 60));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,7 +140,7 @@ public class Teacher extends javax.swing.JFrame {
         });
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1235, 0, 40, 40));
 
-        messageArea.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        messageArea.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 48)); // NOI18N
         messageArea.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -155,32 +155,24 @@ public class Teacher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignOutActionPerformed
-        LoginScreen LI = new LoginScreen(false);
-        LI.show();
-        this.hide();
+        LoginScreen login = new LoginScreen(false);
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SignOutActionPerformed
 
     private void VmessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VmessageActionPerformed
-        if(!messageArea.isSelectionEmpty()){
-            message =  messageArea.getSelectedValue();
-            MessageTeacher MT = new MessageTeacher();
-            MT.getContentPane().setBackground(new Color(45,64,89));
-            //NAME
-            username = tName.getText();
-            MT.tName.setText(username);
-            MT.selectedMessage.setText(message);
-            MT.selectedMessage.setLineWrap(true);
-
-
-            MT.show();
-            this.hide();
+        if (!messageArea.isSelectionEmpty()) {
+            message = messageArea.getSelectedValue();
+            MessageTeacher messageTeacher;
+            try {
+                messageTeacher = new MessageTeacher(username, messageIds.get(messageArea.getSelectedIndex()));
+                messageTeacher.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        else{
-            //needs to display an actual error
-            
-            System.out.println("need to select a message");
-        }
-       
+
     }//GEN-LAST:event_VmessageActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
@@ -188,24 +180,21 @@ public class Teacher extends javax.swing.JFrame {
     }//GEN-LAST:event_exitActionPerformed
 
     private void classListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classListActionPerformed
-       
         try {
             getMessageForCourseFromDB();
         } catch (SQLException ex) {
-            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-            
-        
+
     }//GEN-LAST:event_classListActionPerformed
 
     private void helpPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpPriorityActionPerformed
         try {
-            getPriorityForCourseFromDB();
+            getMessageForCourseFromDB();
         } catch (SQLException ex) {
-            Logger.getLogger(displayHistory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Teacher.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_helpPriorityActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -219,91 +208,56 @@ public class Teacher extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> messageArea;
-    public javax.swing.JLabel tName;
+    public javax.swing.JLabel teacherName;
     // End of variables declaration//GEN-END:variables
 
-      private void getMessageForCourseFromDB() throws SQLException {
+    private void getMessageForCourseFromDB() throws SQLException {
         messagesFromDb.clear();
         messageIds.clear();
-        messageSender.clear();
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-        statement = con.createStatement();
-        if(classList.getSelectedItem() != "View all"){
-        results = statement.executeQuery("select * from message where courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
+        
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+        Statement statement = con.createStatement();
+        String queryPriority;
+        
+        if (String.valueOf(helpPriority.getSelectedItem()).equalsIgnoreCase("all")) {
+            queryPriority = "";
+        } else {
+            queryPriority = " and messagePriority = '" + String.valueOf(helpPriority.getSelectedItem()) + "'";
         }
-        else{
-            results = statement.executeQuery("select * from message");
-        }
+        
+        ResultSet results = statement.executeQuery("select * from message where courseCode = '" 
+                + String.valueOf(classList.getSelectedItem()) + "'" + queryPriority + " order by messageID");
+        
         if (results.first()) {
             while (!results.isAfterLast()) {
-                 messagesFromDb.add(results.getString("username") + "  -  " + results.getString("messagePriority") + "   -   " + results.getString("message"));
-                
+                messagesFromDb.add(results.getString("username") + "               " + results.getString("messagePriority"));
                 messageIds.add(results.getString("messageID"));
                 results.next();
             }
         } 
-        System.out.println(messagesFromDb);
+        
         messageArea.setListData(messagesFromDb.toArray(new String[0]));
         
+        results.close();
+        statement.close();
+        con.close();
+
     }
-      //do we want a view all button?
-      
-     private void populateCourseCodes() throws SQLException {
-        Connection pCCCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-        Statement pCCStatement = pCCCon.createStatement();
-        ResultSet pCCResults = pCCStatement.executeQuery("select * from students");
-        pCCResults.first();
-        System.out.println(pCCResults.getString(4));
-        if(pCCResults.getString(4).equalsIgnoreCase("student")){
-            classList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
-              "",
-              pCCResults.getString("course1"), 
-              pCCResults.getString("course2"), 
-              pCCResults.getString("course3"), 
-              "View all"}));
-        }
-        pCCResults.close();
-        pCCStatement.close();
-        pCCCon.close();
+
+    private void populateCourseCodes() throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
+        Statement statement = con.createStatement();
+        ResultSet results = statement.executeQuery("select course1, course2, course3 from teachers where username = '" + username + "'");
+        results.first();
+        classList.setModel(new javax.swing.DefaultComboBoxModel(new String[]{
+            results.getString("course1"),
+            results.getString("course2"),
+            results.getString("course3")
+        }));
+
+        results.close();
+        statement.close();
+        con.close();
     }
-     private void populatePriorityList(){
-        
-            helpPriority.setModel(new javax.swing.DefaultComboBoxModel(new String[] { 
-              "",  
-              "High", 
-              "Medium",
-              "Low", 
-              "Email Support",
-              "View all"}));
-        
-        }
-    private void getPriorityForCourseFromDB() throws SQLException {
-        //if(helpPriority.getSelectedItem() == "View all" || classList.getSelectedItem() == "View all"){
-        //    getMessageForCourseFromDB();
-        //}
-        //else{
-        messagesFromDb.clear();
-        messageIds.clear();
-        messageSender.clear();
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/teachingassistant", "root", "");
-        statement = con.createStatement();
-        if(helpPriority.getSelectedItem() != "View all"){
-        results = statement.executeQuery("select * from message where courseCode = '" + classList.getSelectedItem() + "' order by courseCode");
-        }
-        else{
-            results = statement.executeQuery("select * from message");
-        }
-        if (results.first()) {
-            while (!results.isAfterLast()) {
-                messagesFromDb.add(results.getString("username") + "  -  " + results.getString("messagePriority") + "   -   " + results.getString("message"));
-                
-                messageIds.add(results.getString("messageID"));
-                results.next();
-            }
-        } 
-        System.out.println(messagesFromDb);
-        messageArea.setListData(messagesFromDb.toArray(new String[0]));
-        
-    //}
-    }
+
 }
